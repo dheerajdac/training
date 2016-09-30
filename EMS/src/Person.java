@@ -7,15 +7,9 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Properties;
 
-import java.sql.PreparedStatement;
+public class Person {
 
 
-
-
-
-public class Main {
-
-	
 	public static void main(String[] args) throws ClassNotFoundException, SQLException, IOException {
 			
 		Properties prop = new Properties();
@@ -31,7 +25,7 @@ public class Main {
 		dbconnection=DriverManager.getConnection(url);
 		System.out.println("Connection sucessfull"+(dbconnection!=null));
 			
-		Statement insertstatement=null;
+		/*Statement insertstatement=null;
 		try {
 			insertstatement = dbconnection.createStatement();
 			String sqlQuery = prop.getProperty("jdbc.query.insert");
@@ -40,29 +34,20 @@ public class Main {
 			if(insertstatement!=null){
 				insertstatement.close();
 			}                                  
-		}
+		}*/
 		
-		
-		String insertQuery1=prop.getProperty("jdbc.query.insert1");
-		try(PreparedStatement preparedStatement = dbconnection.prepareStatement(insertQuery1)){
-			String msg = "this is java";
-			preparedStatement.setString(1, msg);
-			preparedStatement.executeUpdate();
-		}
-		
-		
-		try(Statement selectStatement = dbconnection.createStatement()){
+		try(Statement selectStatement = dbconnection.createStatement( ResultSet.TYPE_SCROLL_SENSITIVE,ResultSet.CONCUR_UPDATABLE)){
 			String selectQuery =prop.getProperty("jdbc.sql.select");
 			ResultSet result;
 			result= selectStatement.executeQuery(selectQuery);
 			
 			while(result.next()){
 				String message = result.getString(1);
+				result.updateString(1, "dheer");
+				result.updateRow();
 				System.out.println(message);
 			}
 		}
 		
-		
 	}
-
 }

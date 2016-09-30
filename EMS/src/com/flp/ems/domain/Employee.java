@@ -2,8 +2,9 @@ package com.flp.ems.domain;
 
 import java.util.Date;
 		
-public class Employee {
+public class Employee implements Cloneable{
 	static int counter=0;
+	private Key employeeId;
 	private String name;
 	private int kinId;
 	private String emailId;
@@ -16,14 +17,16 @@ public class Employee {
 	private Role role;
 	
 	
-	{
-		counter++;
+	
+	public Employee() {
+		// TODO Auto-generated constructor stub
 	}
 	
-	public Employee(String name, String phoneNo, String address, Date dob, Date doj,
+	public Employee( Key employeeId,String name, String phoneNo, String address, Date dob, Date doj,
 			Department department, Project projects, Role role) {
 		super();
-		this.kinId=counter;
+		this.employeeId=employeeId;
+		this.kinId=counter++;
 		this.name = name;
 		this.phoneNo = phoneNo;
 		this.address = address;
@@ -79,16 +82,37 @@ public class Employee {
 	public Project getProjects() {
 		return projects;
 	}
+	
 	public void setProjects(Project projects) {
 		this.projects = projects;
 	}
+	
 	public Role getRole() {
 		return role;
 	}
+	
 	public void setRole(Role role) {
 		this.role = role;
 	}
+	
 	public int getKinId() {
 		return kinId;
+	}
+	
+	@Override
+	protected Object clone() throws CloneNotSupportedException {
+		 Employee employee = new Employee();
+		 	this.employeeId=employee.employeeId;
+			this.name=employee.name;
+			this.kinId=employee.kinId;
+			this.emailId=employee.emailId;
+			this.phoneNo=employee.phoneNo;
+			this.address=employee.address;
+			this.dob=employee.dob;
+			this.doj=employee.doj;
+			this.department=employee.department;
+			this.projects=employee.projects;
+			this.role=employee.role;
+		 return employee;
 	}
 }

@@ -8,9 +8,7 @@ import com.flp.ems.domain.Employee;
 public class EmployeeDaoImplForList implements IemployeeDao{
 	
 	List<Employee> employeeList = new ArrayList<Employee>();
-	public EmployeeDaoImplForList() {
-		// TODO Auto-generated constructor stub
-	}
+	
 
 	@Override
 	public void AddEmployee(Employee employee) {
@@ -23,9 +21,8 @@ public class EmployeeDaoImplForList implements IemployeeDao{
 	}
 	
 	@Override
-	public void ModifyEmployee() {
-		// TODO Auto-generated method stub
-		
+	public void ModifyEmployee(Employee employee) {
+			employeeList.set(employeeList.indexOf(SearchEmployee(employee.getKinId())),employee);
 	}
 	
 	@Override

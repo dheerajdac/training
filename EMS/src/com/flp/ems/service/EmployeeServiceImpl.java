@@ -7,9 +7,9 @@ import java.util.List;
 import com.flp.ems.dao.EmployeeDaoImplForList;
 import com.flp.ems.domain.Department;
 import com.flp.ems.domain.Employee;
+import com.flp.ems.domain.Key;
 import com.flp.ems.domain.Project;
 import com.flp.ems.domain.Role;
-import com.flp.ems.util.Validate;
 
 public class EmployeeServiceImpl implements IEmployeeService{
 	
@@ -19,6 +19,7 @@ public class EmployeeServiceImpl implements IEmployeeService{
 	
 	@Override
 	public void AddEmployee(HashMap entry) {
+		Key key=(Key)entry.get(0);
 		String name=(String) entry.get(1);
 		String phoneNo=(String) entry.get(2);
 		String address=(String) entry.get(3);
@@ -27,7 +28,7 @@ public class EmployeeServiceImpl implements IEmployeeService{
 		Department department= (Department) entry.get(6);
 		Project project=(Project) entry.get(7);
 		Role role=(Role) entry.get(8);
-		Employee employee = new Employee(name,phoneNo, address, dob, doj, department, project, role);
+		Employee employee = new Employee(key,name,phoneNo, address, dob, doj, department, project, role);
 		employeeDaoImplForList.AddEmployee(employee);
 
 	}
@@ -70,6 +71,7 @@ public class EmployeeServiceImpl implements IEmployeeService{
 			default:
 				break;
 			}
+			employeeDaoImplForList.ModifyEmployee(employee);
 			return true;
 		}
 		else
