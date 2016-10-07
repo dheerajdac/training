@@ -8,8 +8,8 @@ public class Entry {
 	public static void main(String[] args) {
 		LinkedList list1 = new LinkedList();
 		
-
-		
+		int value=0;
+		assert value>=1:"dheeraj";
 		list1.add(55);
 		list1.add(30);
 		list1.add(20);
